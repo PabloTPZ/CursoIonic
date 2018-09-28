@@ -1,0 +1,8 @@
+{
+  "name": "lista",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "491f6de0"
+}
