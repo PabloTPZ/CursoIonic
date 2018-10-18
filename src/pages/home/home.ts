@@ -43,7 +43,7 @@ export class HomePage {
     this.audio.currentTime = 0;
 
     for ( let anime of this.animes) {
-      if (anime.nombre = paus.nombre)
+      if (anime.nombre != paus.nombre)
         anime.reproduciendo = false;
     }
 
@@ -54,8 +54,6 @@ export class HomePage {
   }
 
   doRefresh( refresh:any ){
-
-    console.log("entraste al metodo");
 
     setTimeout(()=> {
       this.animes = ANIMES.slice(0);
