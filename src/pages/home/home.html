@@ -1,19 +1,38 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
+  <ion-navbar color="primary">
+    <ion-title *ngIf="!busqueda">
       Ionic Blank
     </ion-title>
+
+    <ion-buttons end>
+      <button ion-button *ngIf="!ordenando && !busqueda" (click)="ordenando=true">
+        <ion-icon name="apps"></ion-icon>
+      </button>
+      <button ion-button *ngIf="ordenando && !busqueda" (click)="ordenando=false">
+        <ion-icon name="checkbox-outline"></ion-icon>
+      </button>
+      <button ion-button *ngIf="!busqueda" (click)="busqueda=true">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button *ngIf="busqueda" (click)="busqueda=false">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+
+
+    <ion-searchbar *ngIf="busqueda" (ionInput)="getItems($event)" ></ion-searchbar>
+
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-  <ion-refresher (ionRefresh)="doRefresh($event)">
+  <ion-refresher (ionRefresh)="doRefresh($event)" [enabled]="!ordenando">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
 
-  <ion-list>
+  <ion-list [reorder]="ordenando" (ionItemReorder)="reordenar( $event )">
 
     <ion-item-sliding *ngFor="let anime of animes;let i = index" >
 

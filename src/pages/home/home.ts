@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ANIMES } from '../../data/data.animes';
 import { Anime} from "../../interfaces/anime.interface";
+import { reorderArray} from "ionic-angular";
 
 @Component({
   selector: 'page-home',
@@ -9,6 +10,8 @@ import { Anime} from "../../interfaces/anime.interface";
 })
 export class HomePage {
 
+  ordenando: boolean;
+  busqueda: boolean;
   animes:  Anime[]=[];
   audio = new Audio();
   timpoDuracion: any;
@@ -48,6 +51,10 @@ export class HomePage {
     }
 
   }
+  reordenar( index: any ){
+    console.log( index );
+    this.animes = reorderArray( this.animes, index);
+  }
 
   eliminar_item( i:number ){
     this.animes.splice(i, 1);
@@ -63,4 +70,19 @@ export class HomePage {
 
   }
 
+  getItems(ev: any) {
+    // Reset items back to all of the items
+
+    this.animes = ANIMES.slice(0);
+
+    // set val to the value of the searchbar
+    const val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.animes = this.animes.filter((item) => {
+        return (item.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
 }
